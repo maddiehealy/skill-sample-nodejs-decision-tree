@@ -17,23 +17,14 @@ var states = {
 
 
 // Questions
-var nodes = [{ "node": 1, "message": "Do you like working with people", "yes": 2, "no": 3 },
-             { "node": 2, "message": "Do you like caring for others", "yes": 4, "no": 5 },
-             { "node": 3, "message": "Would you like to work during the day", "yes": 6, "no": 7 },
-             { "node": 4, "message": "Can you stand the sight of blood", "yes": 8, "no": 9 },
-             { "node": 5, "message": "Is money the most important thing in your life", "yes": 10, "no": 11 },
-             { "node": 6, "message": "Do you want to work with animals", "yes": 12, "no": 13 },
-             { "node": 7, "message": "Are you active", "yes": 14, "no": 15 },
+var nodes = [{ "node": 1, "message": "What would you like to ask Dan McCready about? You can say things like education, jobs, or health care", "education": 2, "jobs": 3, "health care": 4, "why run for congress": 5},
+
 
 // Answers & descriptions
-             { "node": 8, "message": "Doctor", "yes": 0, "no": 0, "description": "A physician or medical doctor is a professional who practices medicine." },
-             { "node": 9, "message": "Teacher", "yes": 0, "no": 0, "description": "In education, teachers facilitate student learning, often in a school or academy or perhaps in another environment such as outdoors."},
-             { "node": 10, "message": "Sales person", "yes": 0, "no": 0 , "description": "A salesman is someone who works in sales, with the main function of selling products or services to others."},
-             { "node": 11, "message": "Artist", "yes": 0, "no": 0 , "description": "An artist is a person engaged in one or more of any of a broad spectrum of activities related to creating art, practicing the arts, and, or demonstrating an art."},
-             { "node": 12, "message": "Zookeeper", "yes": 0, "no": 0 , "description": "A zookeeper is a person who manages zoo animals that are kept in captivity for conservation or to be displayed to the public, and are usually responsible for the feeding and daily care of the animals."},
-             { "node": 13, "message": "Software engineer", "yes": 0, "no": 0 , "description": "A software engineer is a person who applies the principles of software engineering to the design, development, maintenance, testing, and evaluation of the software and systems that make computers or anything containing software work."},
-             { "node": 14, "message": "Security Guard", "yes": 0, "no": 0 , "description": "A security guard is a private person who is paid to protect an organization's assets from various hazards such as criminal activity, by utilizing preventative measures. "},
-             { "node": 15, "message": "Lighthouse keeper", "yes": 0, "no": 0 , "description": "A lighthouse keeper is the person responsible for tending and caring for a lighthouse, particularly the light and lens in the days when oil lamps and clockwork mechanisms were used."},
+             { "node": 2, "We need to make education a priority.  We have to give more pay and respect to teachers, and to treat them as the professionals they are. Among the top priorities are increasing teacher pay, reversing cuts to textbooks and school buses, and stopping teacher assistant lay-offs. Teachers will ultimately know we respect them when our policy reflects our rhetoric.  Reinstating a teaching fellows program to attract the best and brightest, providing opportunities for teachers to improve their skills as professionals, and making sure their kids are healthy and ready to learn in the classroom are vital. North Carolina already ranks 46th in the country and last in the Southeast in per-pupil expenditures for public schools. Many good teachers are leaving for other states for better jobs, and class size has increased. That’s causing parents to lose faith in public schools and undermining North Carolina’s best jobs recruiting tool, our education system. Similarly, I oppose vouchers that drain money from public schools. I support strong standards and openness for all schools, particularly charter schools. While some charters are strong, we see troubling trends, such as a re-segregation of the student population, or misuse of state funds without a way to make the wrongdoers reimburse taxpayers. We need to manage the number of charter schools to ensure we don’t damage public education and we need to better measure charter schools so we can utilize good ideas in all schools. We must support early childhood education as well as our great universities and community colleges. Our approach to quality education must be comprehensive."},
+             { "node": 3, "I am running for Congress in the 9th district because it is time that North Carolina works for everyone, not just the select few.  I am concerned that as unemployment begins to drop, wages are not beginning to rise. I believe we have made budget and tax decisions that have been driven more by ideology than by sound thinking on how to grow the economy and create more opportunity. I know that we can do better. We need a new set of priorities that focuses on rising incomes, putting more money in the pockets of working families, and helping small businesses start up and grow. Small businesses are a vital component of our economy. While some of the biggest companies, including out-of-state corporations, have received tremendous giveaways, many of our small businesses and working families have seen tax increases, sometimes disguised as fees.  Some believe that we should zero out the corporate tax and income tax in favor of much higher sales taxes, gas taxes, and a host of fee hikes.   I think that would harm our economy and put our state at a disadvantage.  Moreover, I am concerned about an economic development plan that focuses mostly on lower corporate taxes instead of having a real, holistic plan to streamline regulations, invest in our workforce, create a fair but low tax environment, and recruit, retain, and start up businesses in the biggest growth sectors of our economy."},
+             { "node": 4, "North Carolinians should be able to get a doctor’s help when they need it without breaking the bank. I am appalled by North Carolina’s failure to expand Medicaid to its neediest residents, especially when our tax dollars are already going to pay for it in other states. Republican governors nationwide have said yes to health care for the working poor, why not North Carolina? I remain concerned about the rising cost of health care and the consolidation of health care providers across our state, especially in underserved areas. Expanding Medicaid would give us more providers and an economic boost from jobs."},
+             { "node": 5, "I'm running for Congress because I have children and when my children get older and learn about the crazy year 2017, they're going to ask me.. what did you, dad?"}
 ];
 
 // this is used for keep track of visted nodes when we test for loops in the tree
@@ -42,40 +33,30 @@ var visited;
 // These are messages that Alexa says to the user during conversation
 
 // This is the intial welcome message
-var welcomeMessage = "Welcome to decision tree, are you ready to play?";
+var welcomeMessage = "Welcome! Would you like to get to know Dan McCready?";
 
 // This is the message that is repeated if the response to the initial welcome message is not heard
-var repeatWelcomeMessage = "Say yes to start the game or no to quit.";
+var repeatWelcomeMessage = "Welcome! Would you like to get to know Dan McCready?";
 
 // this is the message that is repeated if Alexa does not hear/understand the reponse to the welcome message
-var promptToStartMessage = "Say yes to continue, or no to end the game.";
-
-// This is the prompt during the game when Alexa doesnt hear or understand a yes / no reply
-var promptToSayYesNo = "Say yes or no to answer the question.";
-
-// This is the response to the user after the final question when Alex decides on what group choice the user should be given
-var decisionMessage = "I think you would make a good";
+var promptToStartMessage = "Say yes to continue, or no to stop.";
 
 // This is the prompt to ask the user if they would like to hear a short description of thier chosen profession or to play again
-var playAgainMessage = "Say 'tell me more' to hear a short description for this profession, or do you want to play again?";
+var playAgainMessage = "What would you like to ask Dan McCready about? You can say things like education, jobs, or health care?";
 
 // this is the help message during the setup at the beginning of the game
 var helpMessage = "I will ask you some questions that will identify what you would be best at. Want to start now?";
 
 // This is the goodbye message when the user has asked to quit the game
-var goodbyeMessage = "Ok, see you next time!";
+var goodbyeMessage = "Thanks for stopping by! You can read more on my policies at danmccready.com. Be sure to follow me on FaceBook and Twitter for up to the minute updates from the trail!";
 
-var speechNotFoundMessage = "Could not find speech for node";
+var speechNotFoundMessage = "Hmm.. I didn't get that. You can say things like education, jobs, or health care";
 
-var nodeNotFoundMessage = "In nodes array could not find node";
+var nodeNotFoundMessage = "Hmm.. I didn't get that. You can say things like education, jobs, or health care";
 
-var descriptionNotFoundMessage = "Could not find description for node";
+var descriptionNotFoundMessage = "Hmm.. I didn't get that. You can say things like education, jobs, or health care";
 
-var loopsDetectedMessage = "A repeated path was detected on the node tree, please fix before continuing";
-
-var utteranceTellMeMore = "tell me more";
-
-var utterancePlayAgain = "play again";
+var utterancePlayAgain = "ask another question";
 
 // the first node that we will use
 var START_NODE = 1;
@@ -109,17 +90,6 @@ var newSessionHandler = {
 // Called at the start of the game, picks and asks first question for the user
 var startGameHandlers = Alexa.CreateStateHandler(states.STARTMODE, {
     'AMAZON.YesIntent': function () {
-
-        // ---------------------------------------------------------------
-        // check to see if there are any loops in the node tree - this section can be removed in production code
-        visited = [nodes.length];
-        var loopFound = helper.debugFunction_walkNode(START_NODE);
-        if( loopFound === true)
-        {
-            // comment out this line if you know that there are no loops in your decision tree
-             this.emit(':tell', loopsDetectedMessage);
-        }
-        // ---------------------------------------------------------------
 
         // set state to asking questions
         this.handler.state = states.ASKMODE;
@@ -159,14 +129,30 @@ var startGameHandlers = Alexa.CreateStateHandler(states.STARTMODE, {
 // response and then ask another question. If we have asked more than the requested number of questions Alexa will
 // make a choice, inform the user and then ask if they want to play again
 var askQuestionHandlers = Alexa.CreateStateHandler(states.ASKMODE, {
-
-    'AMAZON.YesIntent': function () {
+    
+         'AMAZON.YesIntent': function () {
         // Handle Yes intent.
-        helper.yesOrNo(this,'yes');
+        helper.Jobs(this,'yes');
+        
+    },    'AMAZON.NoIntent': function () {
+        // Handle Yes intent.
+        helper.Jobs(this,'no');
     },
-    'AMAZON.NoIntent': function () {
+    'AMAZON.JobsIntent': function () {
+        // Handle Yes intent.
+        helper.Jobs(this,'jobs');
+    },
+    'AMAZON.EducationIntent': function () {
         // Handle No intent.
-         helper.yesOrNo(this, 'no');
+         helper.Education(this, 'education');
+    },
+        'AMAZON.HealthIntent': function () {
+        // Handle No intent.
+         helper.HealthCare(this, 'health care');
+    },
+        'AMAZON.WhyIntent': function () {
+        // Handle No intent.
+         helper.Why(this, 'why run for congress');
     },
     'AMAZON.HelpIntent': function () {
         this.emit(':ask', promptToSayYesNo, promptToSayYesNo);
@@ -187,43 +173,6 @@ var askQuestionHandlers = Alexa.CreateStateHandler(states.ASKMODE, {
     }
 });
 
-// user has heard the final choice and has been asked if they want to hear the description or to play again
-var descriptionHandlers = Alexa.CreateStateHandler(states.DESCRIPTIONMODE, {
-
- 'AMAZON.YesIntent': function () {
-        // Handle Yes intent.
-        // reset the game state to start mode
-        this.handler.state = states.STARTMODE;
-        this.emit(':ask', welcomeMessage, repeatWelcomeMessage);
-    },
-    'AMAZON.NoIntent': function () {
-        // Handle No intent.
-        this.emit(':tell', goodbyeMessage);
-    },
-    'AMAZON.HelpIntent': function () {
-        this.emit(':ask', promptToSayYesNo, promptToSayYesNo);
-    },
-    'AMAZON.StopIntent': function () {
-        this.emit(':tell', goodbyeMessage);
-    },
-    'AMAZON.CancelIntent': function () {
-        this.emit(':tell', goodbyeMessage);
-    },
-    'AMAZON.StartOverIntent': function () {
-        // reset the game state to start mode
-        this.handler.state = states.STARTMODE;
-        this.emit(':ask', welcomeMessage, repeatWelcomeMessage);
-    },
-    'DescriptionIntent': function () {
-        //var reply = this.event.request.intent.slots.Description.value;
-        //console.log('HEARD: ' + reply);
-        helper.giveDescription(this);
-      },
-
-    'Unhandled': function () {
-        this.emit(':ask', promptToSayYesNo, promptToSayYesNo);
-    }
-});
 
 // --------------- Helper Functions  -----------------------
 
